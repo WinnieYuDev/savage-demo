@@ -1,4 +1,5 @@
 var thumbUp = document.getElementsByClassName("fa-thumbs-up");
+var thumbDown = document.getElementsByClassName("fa-thumbs-down");
 var trash = document.getElementsByClassName("fa-trash");
 
 Array.from(thumbUp).forEach(function(element) {
@@ -19,7 +20,32 @@ Array.from(thumbUp).forEach(function(element) {
           if (response.ok) return response.json()
         })
         .then(data => {
-          console.log(data)
+          console.log("Thumbs Up", data)
+          window.location.reload(true)
+        })
+      });
+});
+
+//thumbs down solution
+Array.from(thumbDown).forEach(function(element) {
+      element.addEventListener('click', function(){
+        const name = this.parentNode.parentNode.childNodes[1].innerText //name
+        const msg = this.parentNode.parentNode.childNodes[3].innerText //msg
+        const counter = parseFloat(this.parentNode.parentNode.childNodes[5].innerText) //counter
+        fetch('messages/down', { // give information from click to server.js app.put('/messages/down')
+          method: 'put',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ //sending to app.put('/messages/down') in key:value pairs
+            'A': name, //Winnie
+            'B': msg, //Hello
+            'C': counter //18
+          })
+        })
+        .then(response => {
+          if (response.ok) return response.json()
+        })
+        .then(data => {
+          console.log("Thumbs Down", data)
           window.location.reload(true)
         })
       });
