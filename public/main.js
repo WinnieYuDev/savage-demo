@@ -51,9 +51,12 @@ Array.from(thumbDown).forEach(function(element) {
       });
 });
 
+//delete from listening to click on trash can icon
 Array.from(trash).forEach(function(element) {
       element.addEventListener('click', function(){
+        //parent node li, parent node span, child node %
         const name = this.parentNode.parentNode.childNodes[1].innerText
+        //skips from 1 to 3 because of carriage return of text node
         const msg = this.parentNode.parentNode.childNodes[3].innerText
         fetch('messages', {
           method: 'delete',
